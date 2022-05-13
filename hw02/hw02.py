@@ -66,4 +66,4 @@ def make_adder(n):
     3
     """
     "*** YOUR CODE HERE ***"
-    return 'REPLACE ME'
+    return lambda x: x+n
