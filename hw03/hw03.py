@@ -25,6 +25,9 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
+    if k < 10:
+        return k == 7
+    return k % 10 == 7 or has_seven(k // 10)
 
 def summation(n, term):
 
@@ -45,6 +48,9 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return term(1)
+    return term(n) + summation(n-1, term)
 
 def square(x):
     return x * x
@@ -77,6 +83,9 @@ def accumulate(combiner, base, n, term):
     72
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return base
+    return combiner(accumulate(combiner, base ,n-1, term), term(n))
 
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
@@ -92,6 +101,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -106,6 +116,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 def filtered_accumulate(combiner, base, pred, n, term):
     """Return the result of combining the terms in a sequence of N terms
@@ -132,6 +143,9 @@ def filtered_accumulate(combiner, base, pred, n, term):
     """
     def combine_if(x, y):
         "*** YOUR CODE HERE ***"
+        if pred(y):
+            return combiner(x, y)
+        return x
     return accumulate(combine_if, base, n, term)
 
 def odd(x):
@@ -229,3 +243,22 @@ def pow_church(m, n):
     9
     """
     "*** YOUR CODE HERE ***"
+
+add = lambda x, y: x + y
+
+def identity(x):
+    return x
+
+def accumulate(combiner, base, n, term):
+    if n == 0:
+        return base
+    return combiner(accumulate(combiner, base ,n-1, term), term(n))
+
+def filtered_accumulate(combiner, base, pred, n, term):
+    def combine_if(x, y):
+        if pred(y):
+            return combiner(x, y)
+        return x
+    return accumulate(combine_if, base, n, term)
+
+a = filtered_accumulate(add, 0, lambda x: True, 5, identity)
