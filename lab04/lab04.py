@@ -20,6 +20,10 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return term(1)
+    else:
+        return term(n) + summation(n-1, term)
 
 
 def pascal(row, column):
@@ -35,6 +39,15 @@ def pascal(row, column):
     6
     """
     "*** YOUR CODE HERE ***"
+    assert row >= 0, column >= 0
+    if column > row:
+        return 0
+    if column == 0:
+        return 1
+    else:
+        upper = pascal(row - 1, column)
+        upper_left = pascal(row - 1, column - 1)
+        return upper + upper_left
 
 
 def paths(m, n):
@@ -51,7 +64,13 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
+    res = 0
+    if m == 0 or n == 0:
+        return 1
+    else:
+        
 
+        return res
 
 def couple(s, t):
     """Return a list of two-element lists in which the i-th element is [s[i], t[i]].
