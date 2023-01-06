@@ -119,7 +119,7 @@ def guess_binary():
     lower, upper = LOWER, UPPER
     guess = (lower + upper) // 2
     "*** YOUR CODE HERE ***"
-    while not is_correct(guess):
+    while lower < upper:
         if is_too_high(guess):            
             upper = guess - 1
             guess = (lower + upper) // 2
