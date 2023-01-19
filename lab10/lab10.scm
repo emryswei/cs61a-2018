@@ -7,7 +7,7 @@
 )
 
 (define (make-adder num) 
-
+    (lambda (inc) (+ num inc))
 )
 
 (define (composed f g)
